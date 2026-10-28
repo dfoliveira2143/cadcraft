@@ -1,5 +1,17 @@
 # CADCraft — instructions for agents
 
+## Validacao documental e confirmacao para testes
+
+- Esta politica e obrigatoria e prevalece sobre orientacoes conflitantes de validacao automatica ou autonomia neste arquivo, em CLAUDE.md, planos e demais referencias. Preserva as regras de organizacao dos commits, branch e autorizacao de push.
+- A excecao vale somente para commits exclusivamente documentais: README.md, CLAUDE.md, AGENTS.md, instrucoes para agentes e documentos de orientacao, planejamento ou referencia que nao sejam usados na execucao, compilacao, empacotamento ou testes do projeto. A extensao do arquivo, por si so, nao determina a elegibilidade.
+- Nesses commits, nao execute suite de testes, compilacao, lint de codigo ou CI completo. Revise o diff, execute `git diff --check`, confira os links locais e a coerencia das instrucoes alteradas. Informe na entrega que a validacao completa foi dispensada por se tratar de alteracao exclusivamente documental.
+- A excecao nao abrange codigo, dependencias, configuracoes, scripts, workflows, assets usados pelo produto, documentacao executavel nem arquivos consumidos pelo aplicativo ou pelo build. Commits que misturem documentacao com essas alteracoes continuam sujeitos as validacoes aplicaveis.
+- Antes de iniciar testes ou validacoes de codigo, explique ao usuario quais verificacoes pretende executar, por que sao necessarias e seu alcance. Informe se podem exigir compilacao demorada, sem inventar estimativas. Pergunte se deseja continuar e aguarde confirmacao explicita; pedidos para alterar arquivos ou criar commits nao autorizam essas execucoes automaticamente.
+- Nao repita a pergunta para a mesma execucao ja autorizada. Peca nova confirmacao se precisar ampliar significativamente o escopo.
+- Se o usuario nao autorizar, preserve as alteracoes e informe quais verificacoes ficaram pendentes. Nao crie commits que exijam essas verificacoes sem uma dispensa explicita do usuario.
+- Durante execucoes longas, comunique avancos relevantes, falhas ou bloqueios, sem mensagens repetitivas de espera.
+- Revisao do diff, `git diff --check` e conferencia de links locais podem ser feitas sem confirmacao.
+
 CADCraft is a clean-room, open-source, pure-Rust computer-aided design and drafting application targeting Autodesk AutoCAD parity — and superiority (speed, openness, agent control). It runs natively on macOS, Windows, Linux and FreeBSD, and on the web via WASM. Siblings with the same conventions: `../photocraft` (Photoshop-class), `../vectorcraft` (Illustrator), `../filmcraft` (Premiere), `../lightcraft` (Lightroom), `../pdfcraft` (Acrobat), `../effectcraft` (After Effects), `../designcraft` (InDesign).
 
 Standards and learnings shared across the crafting apps live in `../../craftrules` (or `storytold/craftrules`). Read its `AGENTS.md` at the start of a session, follow its standards, and contribute reusable learnings back there. Never code: repos don't share code.
@@ -7,7 +19,7 @@ Standards and learnings shared across the crafting apps live in `../../craftrule
 ## Start every session here
 1. Read `plan/STATUS.md` (current milestone, next task), then the task in `plan/execution-plan.md` and the relevant `plan/architecture.md` section. Behaviour reference: `plan/autocad/*` (`01-observed-ui.md` holds measured observations of the running reference app; `04-menu-tree.txt` the menu tree by name).
 2. Library decisions: `plan/adr/0001-geometry-libraries.md` (what we may depend on, what is rejected for licence reasons).
-3. Follow the autonomous operation protocol (`plan/execution-plan.md` §6). Don't stop to ask unless it lists the decision as the owner's.
+3. Follow the autonomous operation protocol (`plan/execution-plan.md` §6). Ask for explicit user confirmation before tests or code validation as required by AGENTS.md; otherwise follow the autonomy protocol.
 
 `plan/` is gitignored (local only).
 
@@ -32,7 +44,7 @@ People trust CADCraft with their drawings; a crash loses their work. **This outr
 - **The UI is thin**: panels read engine state and act through `app.run(id, params)` / `app.start(id)` / `app.cmdline(text)`. Colours come from `theme::Tokens`.
 - **Time goes through `chrono`** (workspace dependency). Never hand-roll UTC/calendar conversion (days-to-date algorithms, leap-year math); a crate owns only its output format string. The one exception is range extension: past the years chrono can represent, shift the date by whole 400-year Gregorian cycles (146,097 days, after which the calendar repeats), let chrono compute the month and day, and add the cycles back to the year (splitting seconds into hours, minutes and seconds is plain arithmetic).
 - **Rust only** (no handwritten JS/TS). **Never break wasm** (`cargo xtask wasm`).
-- **Quality gates** before every commit: `cargo xtask ci` (fmt, clippy -D warnings, tests, assets, layers, wasm). Commit after every feature arc that builds, and push to `main`.
+- **Quality gates** before commits requiring code validation (subject to the documentation exception and explicit user confirmation in AGENTS.md): `cargo xtask ci` (fmt, clippy -D warnings, tests, assets, layers, wasm). Commit after every feature arc that builds, and push to `main`.
 
 ## Running and looking at the app
 - `cargo run --release -p cadcraft -- --sample --control PORT` (sample drawing + control channel). Pick a free port; other crafting apps use control ports too.

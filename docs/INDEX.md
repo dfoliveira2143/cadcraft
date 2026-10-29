@@ -43,3 +43,5 @@ Os guias são mapas de navegação, não novas cópias dos contratos técnicos. 
 - [Plotters](plotters.md)
 - [Releasing CADCraft](releasing.md)
 - [UI parity](ui-parity.md)
+
+- [Creative Workshop: origem, identidade e publicação](branding.md)

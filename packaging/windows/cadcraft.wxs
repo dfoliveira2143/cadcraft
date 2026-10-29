@@ -3,8 +3,8 @@
   <?ifndef HasCraftFontLicences ?>
   <?define HasCraftFontLicences=0 ?>
   <?endif?>
-  <Package Name="CADCraft" Manufacturer="Learning Machines LLC" Version="$(var.Version)" UpgradeCode="119D7D76-0167-4A9E-8F37-09DA0235F68E" Scope="perUserOrMachine" Compressed="yes" Language="1033">
-    <SummaryInformation Description="CADCraft computer-aided design" Manufacturer="Learning Machines LLC" />
+  <Package Name="CADCraft" Manufacturer="Creative Workshop contributors" Version="$(var.Version)" UpgradeCode="119D7D76-0167-4A9E-8F37-09DA0235F68E" Scope="perUserOrMachine" Compressed="yes" Language="1033">
+    <SummaryInformation Description="CADCraft computer-aided design" Manufacturer="Creative Workshop contributors" />
     <?include $(sys.SOURCEFILEDIR)install-policy.wxi?>
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
@@ -13,12 +13,12 @@
 
     <Icon Id="CadcraftIcon.ico" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="CadcraftIcon.ico" />
-    <Property Id="ARPURLINFOABOUT" Value="https://getartcraft.com/apps/cadcraft" />
-    <Property Id="ARPURLUPDATEINFO" Value="https://getartcraft.com/apps/cadcraft" />
-    <Property Id="ARPHELPLINK" Value="https://discord.gg/artcraft" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/dfoliveira2143/cadcraft" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://github.com/dfoliveira2143/cadcraft" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/dfoliveira2143/cadcraft/issues" />
 
     <StandardDirectory Id="ProgramFiles6432Folder">
-      <Directory Id="CraftSuiteFolder" Name="ArtCraft">
+      <Directory Id="CraftSuiteFolder" Name="Creative Workshop">
         <Directory Id="INSTALLFOLDER" Name="CADCraft" />
       </Directory>
     </StandardDirectory>
